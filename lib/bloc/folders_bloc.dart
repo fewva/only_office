@@ -38,6 +38,8 @@ class FoldersBloc extends Bloc<FoldersEvent, FoldersState> {
 
     if (event is GetMyDocumentsEvent) {
 
+      yield FolderLoading();
+
       try {
 
         var myDocs = await Network.getMySection();
@@ -50,6 +52,8 @@ class FoldersBloc extends Bloc<FoldersEvent, FoldersState> {
     }
 
     if (event is GetCommonDocumentsEvent) {
+
+      yield FolderLoading();
 
       try {
 

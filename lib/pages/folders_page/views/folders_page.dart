@@ -10,7 +10,6 @@ import 'package:only_office/models/folder.dart';
 import 'package:only_office/pages/folders_page/local_blocs/user_info_bloc.dart';
 import 'package:only_office/utils/logout.dart';
 
-part 'back_button.dart';
 part 'scaffold_body.dart';
 part 'drawer_children.dart';
 
