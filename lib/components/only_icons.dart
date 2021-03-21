@@ -8,7 +8,6 @@ class OnlyIcons {
   static const String docx = 'assets/icons/docx.svg';
   static const String file = 'assets/icons/file.svg';
   static const String mp4 = 'assets/icons/mp4.svg';
-  static const String mp42 = 'assets/icons/mp42.svg';
   static const String pptx = 'assets/icons/pptx.svg';
   static const String xls = 'assets/icons/xls.svg';
   static const String xlsx = 'assets/icons/xlsx.svg';
