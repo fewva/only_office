@@ -62,5 +62,12 @@ class FoldersBloc extends Bloc<FoldersEvent, FoldersState> {
 
     }
 
+    if (event is BackToInititalState) {
+
+      _currentSection = 'My documents';
+      yield FoldersInitial();
+
+    }
+
   }
 }

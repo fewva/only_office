@@ -10,9 +10,6 @@ class Network {
 
   static Dio get _dio {
     if (token != null && portal != null) {
-
-      print('DIO NOT NULL');
-      print(portal);
       return Dio(BaseOptions(
         headers: {
           'Content-Type': 'application/json',
@@ -22,7 +19,6 @@ class Network {
         baseUrl: 'https://' + portal
       ));
     } else {
-      print('DIO NULL');
       return Dio(
         BaseOptions(
           headers: {'Content-Type': 'application/json'},

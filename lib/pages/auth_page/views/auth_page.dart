@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:only_office/bloc/folders_bloc.dart';
 import 'package:only_office/components/custom_text_field.dart';
 import 'package:only_office/components/snackbar.dart';
-import 'package:only_office/pages/auth/bloc/auth_bloc.dart';
+import 'package:only_office/pages/auth_page/local_blocs/auth_bloc.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({Key key}) : super(key: key);
@@ -15,11 +16,13 @@ class AuthPage extends StatelessWidget {
     var _portalController = TextEditingController();
 
     return BlocProvider(
-      create: (context) => AuthBloc(
-        loginFieldController: _loginController,
-        passwordFieldController: _passwordController,
-        portalFieldController: _portalController
-      ),
+      create: (context) {
+        return AuthBloc(
+          loginFieldController: _loginController,
+          passwordFieldController: _passwordController,
+          portalFieldController: _portalController
+        );
+      },
       child: Scaffold(
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -46,7 +49,7 @@ class AuthPage extends StatelessWidget {
             ),
             BlocBuilder<AuthBloc, AuthState>(
               builder: (context, state) {
-
+                
                 if (state is RequestError) {
                   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
                     ScaffoldMessenger.of(context).showSnackBar(snackBar(state.error.message));
@@ -61,15 +64,14 @@ class AuthPage extends StatelessWidget {
 
                 if (state is LoginCompleted)  {
                   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                    BlocProvider.of<FoldersBloc>(context).add(GetMyDocumentsEvent());
                     Navigator.of(context).pushReplacementNamed('/Folders');
                   });
                 }
 
                 return FlatButton(
                   color: Colors.red,
-                  onPressed: () {
-                    BlocProvider.of<AuthBloc>(context).add(LoginEvent());
-                  },
+                  onPressed: () { BlocProvider.of<AuthBloc>(context).add(LoginEvent()); },
                   child: state is TryingToLogIn 
                     ? SizedBox(height: 20, width: 20, child: const CircularProgressIndicator())
                     : const Text('LOGIN')

@@ -7,7 +7,7 @@ import 'package:only_office/components/file_tile.dart';
 import 'package:only_office/components/folder_tile.dart';
 import 'package:only_office/models/file.dart';
 import 'package:only_office/models/folder.dart';
-import 'package:only_office/pages/folders_page/bloc/user_info_bloc.dart';
+import 'package:only_office/pages/folders_page/local_blocs/user_info_bloc.dart';
 import 'package:only_office/utils/logout.dart';
 
 part 'back_button.dart';

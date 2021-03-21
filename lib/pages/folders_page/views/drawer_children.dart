@@ -27,15 +27,7 @@ class DrawerChildren extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(state.error.toString()),
-                  TextButton(
-                    onPressed: () async {
-                      // final _storage = FlutterSecureStorage();
-                      // await _storage.deleteAll();
-                      await logout(context);
-                      await Navigator.pushReplacementNamed(context, '/Auth');
-                    }, 
-                    child: const Text('Logout')
-                  )
+                  _LogoutButton()
                 ],
               ),
             );
@@ -79,15 +71,7 @@ class DrawerChildren extends StatelessWidget {
                     Navigator.pop(context);
                   }
                 ),
-                TextButton(
-                  onPressed: () async {
-                    // final _storage = FlutterSecureStorage();
-                    // await _storage.deleteAll();
-                    await logout(context);
-                    await Navigator.pushReplacementNamed(context, '/Home');
-                  }, 
-                  child: const Text('Logout')
-                )
+                _LogoutButton()
               ],
             );
           }
@@ -99,6 +83,21 @@ class DrawerChildren extends StatelessWidget {
 
         },
       ),
+    );
+  }
+}
+
+class _LogoutButton extends StatelessWidget {
+  const _LogoutButton({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return  TextButton(
+      onPressed: () async {
+        await logout(context);
+        await Navigator.pushReplacementNamed(context, '/Home');
+      }, 
+      child: const Text('Logout')
     );
   }
 }

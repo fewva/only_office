@@ -28,20 +28,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   ) async* {
 
-
     if (event is LoginEvent)  {
 
       if (
-        loginFieldController.text != '' &&
-        passwordFieldController.text != '' &&
-        portalFieldController.text != ''
+        loginFieldController.text == '' ||
+        passwordFieldController.text == '' ||
+        portalFieldController.text == ''
       ) {
-        
+
+        yield ValidationError();
+
+      } else {
+
         yield TryingToLogIn();
 
         try {
-
-          print('LOGIN: ' + loginFieldController.text);
 
           var ans = await Network.login(
             login: loginFieldController.text,
@@ -49,29 +50,25 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             portal: portalFieldController.text
           );
 
-          String token = jsonDecode(ans.data)['response']['token'];
+          String _token = jsonDecode(ans.data)['response']['token'];
+          String _tokenExpirationDate = jsonDecode(ans.data)['response']['expires'];
 
-          final storage = FlutterSecureStorage();
+          final _storage = FlutterSecureStorage();
 
-          await storage.write(key: 'token', value: token);
-          await storage.write(key: 'portal', value: portalFieldController.text);
+          await _storage.write(key: 'token', value: _token);
+          await _storage.write(key: 'portal', value: portalFieldController.text);
+          await _storage.write(key: 'token_expiration_date', value: _tokenExpirationDate);
 
-          Network.token = token;
+          Network.token = _token;
           Network.portal = portalFieldController.text;
 
           yield LoginCompleted();
-          
-        } catch (e) {
 
+        }   catch (e) {
           yield RequestError(error: e);
-
         }
 
-
-      } else {
-        yield ValidationError();
       }
-
     }
   }
 }

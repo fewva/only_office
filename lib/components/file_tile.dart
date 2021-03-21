@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:only_office/components/only_icons.dart';
+import 'package:only_office/components/only_office_icons.dart';
 import 'package:only_office/models/file.dart';
 
 class FileTile extends StatelessWidget {

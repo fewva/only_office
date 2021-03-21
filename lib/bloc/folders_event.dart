@@ -13,3 +13,5 @@ class GetFolderEvent extends FoldersEvent  {
 class GetMyDocumentsEvent extends FoldersEvent  {}
 
 class GetCommonDocumentsEvent extends FoldersEvent  {}
+
+class BackToInititalState extends FoldersEvent  {}
